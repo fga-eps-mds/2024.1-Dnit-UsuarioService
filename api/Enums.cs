@@ -114,6 +114,19 @@ namespace api
         UsuarioVisualizar = 8003,
         [Description("Editar Perfil Usuário")]
         UsuarioPerfilEditar = 8004,
+        
+        [Description("Cadastrar Polo")]
+        PoloCadastrar = 10000,
+
+        [Description("Editar Polo")]
+        PoloEditar = 10001,
+
+        [Description("Remover Polo")]
+        PoloRemover = 10002,
+
+        [Description("Visualizar Polo")]
+        PoloVisualizar = 10003,
+
     }
 
     public enum ErrorCodes
