@@ -72,6 +72,8 @@ namespace api
         EscolaRemover = 1002,
         [Description("Visualizar Escola")]
         EscolaVisualizar = 1003,
+        [Description("Exportar Escola")]
+        EscolaExportar = 1004,
 
         [Description("Cadastrar Empresa")]
         EmpresaCadastrar = 2000,
@@ -96,13 +98,19 @@ namespace api
         PerfilRemover = 3002,
         [Description("Visualizar perfis")]
         PerfilVisualizar = 3003,
-        
+
         [Description("_Calcular UPS de Sinistros")]
         UpsCalcularSinistro = 5000,
         [Description("_Calcular UPS de escolas")]
         UpsCalcularEscola = 5001,
-        [Description("Visualizar Ranque")]
+        [Description("Visualizar Ranking de Escolas")]
         RanqueVisualizar = 5002,
+        [Description("_Calcular Ranking de Escolas")]
+        RanqueCalcular = 5003,
+        [Description("_Calcular Ranking de Escolas")]
+        RanquePollProcessamento = 5004,
+        [Description("Exportar Ranking de Escolas")]
+        RanqueExportar = 5005,
 
         [Description("Cadastrar rodovia")]
         RodoviaCadastrar = 6000,
@@ -127,6 +135,9 @@ namespace api
         [Description("Visualizar Polo")]
         PoloVisualizar = 10003,
 
+
+        [Description("Visualizar solicitação")]
+        SolicitacaoVisualizar = 9000,
     }
 
     public enum ErrorCodes
