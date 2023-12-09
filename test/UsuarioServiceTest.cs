@@ -41,10 +41,10 @@ namespace test
             var senhaConfig = new SenhaConfig();
             authConfig = new Mock<IOptions<AuthConfig>>();
             authService = new AuthService(authConfig.Object);
-            
+
             usuarioServiceMock = new UsuarioService(
-                usuarioRepositorio.Object, perfilRepositorio.Object, 
-                mapper.Object, emailService.Object, 
+                usuarioRepositorio.Object, perfilRepositorio.Object,
+                mapper.Object, emailService.Object,
                 Options.Create(senhaConfig), dbContext, authService, authConfig.Object);
         }
 
@@ -55,11 +55,11 @@ namespace test
             var usuarioDNIT = usuarioStub.RetornarUsuarioDnit();
 
             string senhaAntesDaEncriptografia = usuarioDNIT.Senha;
-            mapper.Setup(x => x.Map<UsuarioDnit>(It.IsAny<UsuarioDTO>())).Returns(usuarioDNIT);
+            mapper.Setup(x => x.Map<UsuarioDTO>(It.IsAny<UsuarioDTO>())).Returns(usuarioDNIT);
 
             await usuarioServiceMock.CadastrarUsuarioDnit(usuarioStub.RetornarUsuarioDnitDTO());
 
-            usuarioRepositorio.Verify(x => x.CadastrarUsuarioDnit(It.IsAny<UsuarioDnit>()), Times.Once);
+            usuarioRepositorio.Verify(x => x.CadastrarUsuarioDnit(It.IsAny<UsuarioDTO>()), Times.Once);
 
             Assert.NotEqual(senhaAntesDaEncriptografia, usuarioDNIT.Senha);
         }
@@ -87,8 +87,8 @@ namespace test
             var usuarioStub = new UsuarioStub();
             var usuarioDNIT = usuarioStub.RetornarUsuarioDnit();
 
-            mapper.Setup(x => x.Map<UsuarioDnit>(It.IsAny<UsuarioDTO>())).Returns(usuarioDNIT);
-            usuarioRepositorio.Setup(x => x.CadastrarUsuarioDnit(It.IsAny<UsuarioDnit>())).Throws(new InvalidOperationException("Email já cadastrado."));
+            mapper.Setup(x => x.Map<UsuarioDTO>(It.IsAny<UsuarioDTO>())).Returns(usuarioDNIT);
+            usuarioRepositorio.Setup(x => x.CadastrarUsuarioDnit(It.IsAny<UsuarioDTO>())).Throws(new InvalidOperationException("Email já cadastrado."));
 
             var cadastrarUsuario = async () => await usuarioServiceMock.CadastrarUsuarioDnit(usuarioStub.RetornarUsuarioDnitDTO());
 
@@ -120,7 +120,7 @@ namespace test
 
             var usuarioRetorno = usuarioStub.RetornarUsuarioDnitBanco();
 
-            mapper.Setup(x => x.Map<UsuarioDnit>(It.IsAny<UsuarioDTO>())).Returns(usuarioDNIT);
+            mapper.Setup(x => x.Map<UsuarioDTO>(It.IsAny<UsuarioDTO>())).Returns(usuarioDNIT);
 
             usuarioRepositorio.Setup(x => x.InserirDadosRecuperacao(It.IsAny<string>(), It.IsAny<int>()));
             usuarioRepositorio.Setup(x => x.ObterUsuarioPorEmail(It.IsAny<string>())).Returns(usuarioRetorno);
@@ -137,7 +137,7 @@ namespace test
             var usuarioDnitDTO = usuarioStub.RetornarUsuarioDnitDTO();
             var usuarioDNIT = usuarioStub.RetornarUsuarioDnit();
 
-            mapper.Setup(x => x.Map<UsuarioDnit>(It.IsAny<UsuarioDTO>())).Returns(usuarioDNIT);
+            mapper.Setup(x => x.Map<UsuarioDTO>(It.IsAny<UsuarioDTO>())).Returns(usuarioDNIT);
 
             usuarioRepositorio.Setup(x => x.InserirDadosRecuperacao(It.IsAny<string>(), It.IsAny<int>()));
             usuarioRepositorio.Setup(x => x.ObterUsuarioPorEmail(It.IsAny<string>())).Returns(value: null);
@@ -155,7 +155,7 @@ namespace test
             var usuarioDNIT = usuarioStub.RetornarUsuarioDnit();
             var redefinicaoSenha = redefinicaoSenhaStub.ObterRedefinicaoSenha();
 
-            mapper.Setup(x => x.Map<UsuarioDnit>(It.IsAny<UsuarioDTO>())).Returns(usuarioDNIT);
+            mapper.Setup(x => x.Map<UsuarioDTO>(It.IsAny<UsuarioDTO>())).Returns(usuarioDNIT);
             mapper.Setup(x => x.Map<RedefinicaoSenhaModel>(It.IsAny<RedefinicaoSenhaDTO>())).Returns(redefinicaoSenha);
 
             usuarioRepositorio.Setup(x => x.InserirDadosRecuperacao(It.IsAny<string>(), It.IsAny<int>()));
@@ -178,7 +178,7 @@ namespace test
             var usuarioDNIT = usuarioStub.RetornarUsuarioDnit();
             var redefinicaoSenha = redefinicaoSenhaStub.ObterRedefinicaoSenha();
 
-            mapper.Setup(x => x.Map<UsuarioDnit>(It.IsAny<UsuarioDTO>())).Returns(usuarioDNIT);
+            mapper.Setup(x => x.Map<UsuarioDTO>(It.IsAny<UsuarioDTO>())).Returns(usuarioDNIT);
             mapper.Setup(x => x.Map<RedefinicaoSenhaModel>(It.IsAny<RedefinicaoSenhaDTO>())).Returns(redefinicaoSenha);
 
             usuarioRepositorio.Setup(x => x.InserirDadosRecuperacao(It.IsAny<string>(), It.IsAny<int>()));
