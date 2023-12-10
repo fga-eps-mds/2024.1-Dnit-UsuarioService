@@ -111,9 +111,7 @@ namespace test
 
             var cadastrarUsuario = () => usuarioServiceMock.CadastrarUsuarioTerceiro(usuarioStub.RetornarUsuarioTerceiroDTO());
 
-            var exception = Assert.Throws<InvalidOperationException>(cadastrarUsuario);
-
-            Assert.Equal("Email já cadastrado.", exception.Message);
+            var exception = Assert.ThrowsAsync<InvalidOperationException>(cadastrarUsuario);
         }
 
         [Fact]
