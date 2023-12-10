@@ -65,11 +65,12 @@ namespace app.Services
             return BCryptNet.HashPassword(senha, salt);
         }
 
-        public void CadastrarUsuarioTerceiro(UsuarioDTO usuarioDTO)
+        public async Task CadastrarUsuarioTerceiro(UsuarioDTO usuarioDTO)
         {
             var usuario = mapper.Map<UsuarioTerceiro>(usuarioDTO);
             usuario.Senha = EncriptarSenha(usuario.Senha);
-            usuarioRepositorio.CadastrarUsuarioTerceiro(usuario);
+            await usuarioRepositorio.CadastrarUsuarioTerceiro(usuario);
+            await dbContext.SaveChangesAsync();
         }
 
         public async Task<LoginModel> AutenticarUsuarioAsync(string email, string senha)
