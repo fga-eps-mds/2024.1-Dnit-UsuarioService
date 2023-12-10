@@ -52,16 +52,21 @@ namespace test
         public async Task CadastrarUsuarioDnit_QuandoUsuarioDnitForPassado_DeveCadastrarUsuarioDnitComSenhaEncriptografada()
         {
             UsuarioStub usuarioStub = new();
-            var usuarioDNIT = usuarioStub.RetornarUsuarioDnit();
+            var usuarioDTO = usuarioStub.RetornarUsuarioDnitDTO();
 
-            string senhaAntesDaEncriptografia = usuarioDNIT.Senha;
-            mapper.Setup(x => x.Map<UsuarioDTO>(It.IsAny<UsuarioDTO>())).Returns(usuarioDNIT);
+            var clonedUsuarioDTO = new UsuarioDTO
+            {
+                Nome = usuarioDTO.Nome,
+                Senha = usuarioDTO.Senha,
+                Email = usuarioDTO.Email,
+                UfLotacao = usuarioDTO.UfLotacao,
+            };
 
-            await usuarioServiceMock.CadastrarUsuarioDnit(usuarioStub.RetornarUsuarioDnitDTO());
+            mapper.Setup(x => x.Map<UsuarioDTO>(It.IsAny<UsuarioDTO>())).Returns((UsuarioDTO _) => clonedUsuarioDTO);
 
+            await usuarioServiceMock.CadastrarUsuarioDnit(usuarioDTO);
             usuarioRepositorio.Verify(x => x.CadastrarUsuarioDnit(It.IsAny<UsuarioDTO>()), Times.Once);
-
-            Assert.NotEqual(senhaAntesDaEncriptografia, usuarioDNIT.Senha);
+            Assert.NotEqual(usuarioDTO.Senha, clonedUsuarioDTO.Senha);
         }
 
         [Fact]

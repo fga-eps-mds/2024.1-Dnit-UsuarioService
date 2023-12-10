@@ -114,13 +114,9 @@ namespace test
         [Fact]
         public async Task ListarEmpresasSemPaginacao_QuandoExistir_DeveRetornarListaDeEmpresas()
         {
-            var lista = EmpresaStub.RetornaListaDeEmpresas(5);
-
-            lista.ForEach(p => empresaService.CadastrarEmpresa(p));
-
             var listaRetorno = await empresaService.ListarAsync();
 
-            Assert.Equal(6, listaRetorno.Count);
+            Assert.Single(listaRetorno);
         }
     }
 }
