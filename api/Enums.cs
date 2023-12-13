@@ -149,6 +149,15 @@ namespace api
 
         [Description("Remover Planejamento Macro")]
         PlanejamentoRemover = 11003,
+
+        [Description("Visualizar Prioridades")]
+        PrioridadesVisualizar = 12000,
+
+        [Description("Editar Prioridades")]
+        PrioridadesEditar = 12001,
+
+        [Description("Excluir Prioridades")]
+        PrioridadesExcluir = 12002,
     }
 
     public enum ErrorCodes
