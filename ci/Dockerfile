@@ -4,9 +4,8 @@ WORKDIR /app
 
 COPY UsuarioService.sln ./
 COPY app/app.csproj ./app/
-COPY dominio/dominio.csproj ./dominio/
-COPY repositorio/repositorio.csproj ./repositorio/
-COPY service/service.csproj ./service/
+COPY api/api.csproj ./api/
+COPY auth/auth.csproj ./auth/
 COPY test/test.csproj ./test/
 
 RUN dotnet restore
@@ -15,16 +14,13 @@ COPY . ./
 
 RUN dotnet build -c Release
 
-RUN dotnet publish app/app.csproj -c Release -o /app/out
-RUN dotnet publish service/service.csproj -c Release -o /app/out
-RUN dotnet publish repositorio/repositorio.csproj -c Release -o /app/out
-RUN dotnet publish dominio/dominio.csproj -c Release -o /app/out
-RUN dotnet publish test/test.csproj -c Release -o /app/out
+RUN dotnet publish -c Release --no-restore -o build app
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
 
 WORKDIR /app
 
-COPY --from=build /app/out .
+COPY --from=build /app/build .
+COPY --from=build /app/app/Migrations/Data/ /app/Migrations/Data/
 
-ENTRYPOINT ["dotnet", "app.dll"]
+CMD ["dotnet", "app.dll"]
