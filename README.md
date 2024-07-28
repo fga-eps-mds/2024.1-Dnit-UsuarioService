@@ -1,4 +1,4 @@
-# 2023.1-Dnit-UsuarioService
+# 2024.1-Dnit-UsuarioService
 
 Serviço responsavel pelas funcionalidades relacionadas à autentificação (cadastro de usuarios, login, solicitação de recuperação de senha, redefinição de senha).
 
@@ -56,7 +56,7 @@ Para clonar o repostório, basta utilizar o comando abaixo:
 
 ##### UsuarioService
 ```
-git clone https://github.com/fga-eps-mds/2023.1-Dnit-UsuarioService.git
+git clone https://github.com/fga-eps-mds/2024.1-Dnit-UsuarioService.git
 ```
 
 ### Como Rodar
